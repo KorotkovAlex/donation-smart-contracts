@@ -19,9 +19,6 @@ contract Donation{
   Recipient[] public recipients;
   Sender[] public senders;
 
-  /*mapping (address => Recipient) recipients2;*/
-  /*address[] public recipients2;*/
-
   event LogDep (address sender,    uint amount, uint balance);
   event LogSent(address recipient, uint amount, uint balance);
   event LogErr (address recipient, uint amount, uint balance);
@@ -57,8 +54,6 @@ contract Donation{
 
 		return (0, 0x00,"","", 0,0, false);
   }
-
-
 
   function returnRecipientByKeySt(address key) public constant returns(Recipient){
 		for (uint i = 0; i < recipients.length; i++ ){
