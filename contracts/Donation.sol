@@ -57,11 +57,11 @@ contract Donation{
 
   function returnRecipientByKeySt(address key) public constant returns(Recipient){
 		for (uint i = 0; i < recipients.length; i++ ){
-			if(recipients[i].owner == key) {
+			if(recipients[i].owner == key && !recipients[i].helped) {
         return (recipients[i]);
 			}
 		}
-    var requestDoc = Recipient(0x00,"","", 0,0, false);
+    var requestDoc = Recipient(0x00,"","", 1,0, false);
 
 		return requestDoc;
   }
@@ -82,7 +82,7 @@ contract Donation{
 
   function changeRecipientByKey(address key, uint countEth, bool helped) public payable returns(bool success){
     for (uint i = 0; i < recipients.length; i++ ){
-      if(recipients[i].owner == key) {
+      if(recipients[i].owner == key && !recipients[i].helped) {
         recipients[i].countEthNow += countEth;
         recipients[i].helped = helped;
 
