@@ -2,7 +2,6 @@ var MetaCoin = artifacts.require("./MetaCoin.sol");
 
 contract('MetaCoin', function(accounts) {
   it("should put 10000 MetaCoin in the first account", function() {
-    console.log("accounts", accounts);
     return MetaCoin.deployed().then(function(instance) {
       return instance.getBalance.call(accounts[0]);
     }).then(function(balance) {
