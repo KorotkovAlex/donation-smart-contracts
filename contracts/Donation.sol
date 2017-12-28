@@ -98,7 +98,7 @@ contract Donation{
   function checkBalanceRecipient(address to) public payable returns(bool success){
     Recipient memory requestDoc = returnRecipientByKeySt(to);
     if (requestDoc.countEth <= requestDoc.countEthNow) {
-      to.transfer(requestDoc.countEth);
+      to.transfer(requestDoc.countEthNow);
       LogSent(to, requestDoc.countEthNow, this.balance);
       changeRecipientByKey(to, 0, true);
 
@@ -108,7 +108,7 @@ contract Donation{
     return false;
   }
 
-  function chakeRecipientByKey(address key) public constant returns(bool){
+  function checkRecipientByKey(address key) public constant returns(bool){
 		for (uint i = 0; i < recipients.length; i++ ){
       if(recipients[i].owner == key && !recipients[i].helped) {
         return false;
@@ -121,7 +121,7 @@ contract Donation{
 
   function addUser(string title, string description, uint countEth, uint countEthNow) public returns(address, string, string, uint, uint){
     var requestDoc = Recipient(msg.sender, title, description, countEth, countEthNow, false);
-    if(chakeRecipientByKey(msg.sender)){
+    if(checkRecipientByKey(msg.sender)){
       recipients.push(requestDoc);
       return(requestDoc.owner, requestDoc.title, requestDoc.description, requestDoc.countEth, requestDoc.countEthNow);
     }
